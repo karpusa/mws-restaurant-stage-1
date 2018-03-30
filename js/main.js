@@ -4,6 +4,17 @@ let restaurants,
 var map
 var markers = []
 
+// Service Worker to sure to save things before all fetches happen
+if ('serviceWorker' in navigator) {
+	window.addEventListener('load', function () {
+		navigator.serviceWorker.register('serviceworker.js').then(function (registration) {
+			console.log('ServiceWorker registration successful with scope: ', registration.scope);
+		}, function (err) {
+			console.log('ServiceWorker registration failed: ', err);
+		});
+	});
+}
+
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
