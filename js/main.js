@@ -1,19 +1,8 @@
 let restaurants,
   neighborhoods,
-  cuisines
-var map
-var markers = []
-
-// Service Worker to sure to save things before all fetches happen
-if ('serviceWorker' in navigator) {
-	window.addEventListener('load', function () {
-		navigator.serviceWorker.register('serviceworker.js').then(function (registration) {
-			console.log('ServiceWorker registration successful with scope: ', registration.scope);
-		}, function (err) {
-			console.log('ServiceWorker registration failed: ', err);
-		});
-	});
-}
+  cuisines;
+var map;
+var markers = [];
 
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
@@ -148,10 +137,10 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
  */
 createRestaurantHTML = (restaurant) => {
   const li = document.createElement('li');
-
   const image = document.createElement('img');
   image.className = 'restaurant-img';
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
+  image.alt = 'An image from the restaurant ' + restaurant.name;
   li.append(image);
 
   const name = document.createElement('h1');
